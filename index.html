@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shahid Syed Nazrul Islam College: Empowering Students for a Brighter Future. Explore academics, admissions, and campus life.">
+    <meta name="keywords" content="SSNIC, Shahid Syed Nazrul Islam College, Mymensingh, Education, Admissions">
+    <title>Shahid Syed Nazrul Islam College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Verdana', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hide main content until modal is closed */
+        .hidden {
+            display: none;
+        }
+
+        /* Running Headline */
+        .running-headline {
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            padding: 0.3rem;
+            font-weight: bold;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 100%;
+            background-color: #FF4136;
+            animation: headline 15s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes headline {
+            0% {
+                left: 100%;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+
+        /* Modal Overlay */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex; /* Show modal when needed */
+            opacity: 1; /* Fully opaque */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-content button {
+            padding: 0.5rem 1rem;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-content button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(90deg, #007BFF, #00C9FF);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+            padding-top: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        header .location {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #ffcc00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Success Box */
+        .success-box {
+            background: #28a745;
+            color: white;
+            padding: 1rem;
+            margin: 1rem auto;
+            text-align: center;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .success-box:hover {
+            transform: scale(1.02);
+        }
+
+        /* Navigation Menu */
+        nav {
+            background: #333;
+            padding: 0.8rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        nav .menu-button {
+            display: none;
+            transition: transform 0.3s ease;
+        }
+
+        nav .menu-items {
+            display: flex;
+            justify-content: space-around;
+            transition: transform 0.3s ease;
+        }
+
+        nav .menu-items a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        nav .menu-items a:hover {
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 768px) {
+            nav .menu-items {
+                display: none;
+                flex-direction: column;
+                background: #333;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+            }
+
+            nav.open .menu-items {
+                display: flex;
+                transform: scale(1.02);
+            }
+
+            nav .menu-button {
+                display: block;
+                background: #444;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                font-size: 1.2rem;
+                transition: background 0.3s ease, transform 0.3s ease;
+            }
+
+            nav .menu-button:hover {
+                background: #555;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            margin: 2rem auto;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        section:nth-child(even) {
+            background: #f1f1f1;
+        }
+
+        section:hover {
+            transform: scale(1.02);
+        }
+
+        section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: #007BFF;
+        }
+
+        section p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Teachers Hub Section */
+        #teachers {
+            background: #f1f1f1;
+            padding: 2rem;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        #teachers:hover {
+            transform: scale(1.05);
+        }
+
+        #teachers h2 {
+            font-size: 2.5rem;
+            color: #007BFF;
+        }
+
+        #teachers p {
+            font-size: 1.2rem;
+        }
+
+        #teachers .principal {
+            font-size: 1.5rem;
+            color: #28a745;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #teachers .principal i {
+            color: #007BFF;
+        }
+
+        #teachers .principal img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-icons a {
+            margin: 0 0.5rem;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #007BFF;
+        }
+
+        .credit {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal Overlay -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2>Success Stories</h2>
+            <p>2000+ Alumni</p>
+            <p>60+ Medical Seats</p>
+            <p>700+ GPA 5</p>
+            <button onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <div class="hidden main-content">
+        <div class="running-headline">
+            Admissions Open for HSC 27 Batch. Enroll Now to Secure Your Seat!
+        </div>
+
+        <header>
+            <h1>Shahid Syed Nazrul Islam College</h1>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Mymensingh Sadar, Mymensingh</span>
+            </div>
+            <p>Empowering Students for a Brighter Future</p>
+        </header>
+
+        <div class="success-box">
+            <i class="fas fa-trophy"></i> Congratulations to our students for achieving 700+ GPA 5 and 60+ Medical Seats in 2024!
+        </div>
+
+        <nav class="menu">
+            <button class="menu-button" aria-label="Open Menu">☰ Menu</button>
+            <div class="menu-items">
+                <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#academics"><i class="fas fa-book"></i> Academics</a>
+                <a href="#admissions"><i class="fas fa-user-plus"></i> Admissions</a>
+                <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+                <a href="#facilities"><i class="fas fa-building"></i> Facilities</a>
+                <a href="#gallery"><i class="fas fa-images"></i> Gallery</a>
+                <a href="#teachers"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
+                <a href="#notices"><i class="fas fa-bell"></i> Notices</a>
+                <a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="/student-login"><i class="fas fa-user-graduate"></i> Student Login</a>
+                <a href="/teacher-login"><i class="fas fa-user-tie"></i> Teacher Login</a>
+            </div>
+        </nav>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Shahid Syed Nazrul Islam College, located in Mymensingh Sadar, is dedicated to providing high-quality education.</p>
+        </section>
+
+        <section id="academics">
+            <h2>Academics</h2>
+            <p>Explore our wide range of courses and programs designed to prepare students for success in their careers.</p>
+        </section>
+
+        <section id="admissions">
+            <h2>Admissions</h2>
+            <p>Admission going on for the freshers of the upcoming HSC 27 batch. Join us to build a brighter future!</p>
+        </section>
+
+        <section id="events">
+            <h2>Upcoming Events</h2>
+            <p>Stay updated with our latest events and activities happening on campus.</p>
+        </section>
+
+        <section id="facilities">
+            <h2>Facilities</h2>
+            <p>Our college offers state-of-the-art facilities including a library, laboratories, sports complex, and more.</p>
+        </section>
+
+        <section id="gallery">
+            <h2>Gallery</h2>
+            <p>Take a visual tour of our campus and events through our photo gallery.</p>
+            <a href="x.jpg" target="_blank" aria-label="View Event 1">
+                <img src="x.jpg" alt="Event 1" width="70">
+            </a>
+            <a href="IMG_20241217_085342 - Copy.jpg" target="_blank" aria-label="View Event 2">
+                <img src="y.jpg" alt="Event 2" width="70">
+            </a>
+            <a href="IMG_20241217_085342 - Copy.jpg" target="_blank" aria-label="View Event 3">
+                <img src="z.jpg" alt="Event 3" width="70">
+            </a>
+            <a href="IMG_20241217_085342 - Copy.jpg" target="_blank" aria-label="View Event 3">
+                <img src="a.jpg" alt="Event 3" width="70">
+            </a>
+            <a href="IMG_20241217_085342 - Copy.jpg" target="_blank" aria-label="View Event 3">
+                <img src="b.jpg" alt="Event 3" width="70">
+            </a>
+            <a href="IMG_20241217_085342 - Copy.jpg" target="_blank" aria-label="View Event 3">
+                <img src="c.jpg" alt="Event 3" width="70">
+            </a>
+            <a href="IMG_20241217_085342 - Copy.jpg" target="_blank" aria-label="View Event 3">
+                <img src="c.jpg" alt="Event 3" width="70">
+            </a>
+
+        </section>
+
+        <section id="teachers">
+            <h2>Teachers Hub</h2>
+            <p>Meet our experienced and dedicated faculty members. Total Teachers: <strong>53</strong></p>
+            <div class="principal">
+                <img src="principal.jpg" alt="Principal">
+                <i class="fas fa-user-tie"></i>
+                <span>Principal: <strong style="color: #007BFF;">MD. HADIUL ISLAM TUTUL</strong></span>
+            </div>
+        </section>
+
+        <section id="notices">
+            <h2>Notices</h2>
+            <p>Stay informed with the latest updates, announcements, and important notices from the college.</p>
+        </section>
+
+        <section id="faq">
+            <h2>FAQ</h2>
+            <p><strong>Why Syed is best for your child?</strong></p>
+            <p>Every year, SSNIC students achieve outstanding results, with more than 700+ GPA 5 in HSC Examination. Over 60+ students get medical seats, including DMC, and more than 500+ students secure positions in various institutions.</p>
+
+            <p><strong>What facilities does the college provide?</strong></p>
+            <p>We offer advanced labs, a modern library, experienced faculty, and a robust student support system.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p><i class="fas fa-map-marker-alt"></i> Address: Mymensing Sadar, Mymensingh</p>
+            <p><i class="fas fa-phone"></i> Phone: +123 456 7890</p>
+            <p><i class="fas fa-envelope"></i> Email: contact@ssnic.edu</p>
+        </section>
+
+        <footer>
+            <div class="credit">
+                <p>Coded By Section-B, SSNICian-26</p>
+            </div>
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2025 Shahid Syed Nazrul Islam College. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById('myModal').classList.remove('show');
+            document.querySelector('.main-content').classList.remove('hidden');
+        }
+
+        // Show the modal on page load
+        window.onload = function() {
+            document.getElementById('myModal').classList.add('show');
+        }
+
+        const menuButton = document.querySelector('.menu-button');
+        const menu = document.querySelector('nav');
+        
+        menuButton.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
